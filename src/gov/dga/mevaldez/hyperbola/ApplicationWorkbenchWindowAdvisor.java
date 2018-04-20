@@ -7,14 +7,18 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
-
+	
+	private ApplicationActionBarAdvisor actionBarAdvisor;
+	
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
     }
     
     @Override
     public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
-        return new ActionBarAdvisor(configurer);
+    	actionBarAdvisor = new ApplicationActionBarAdvisor(configurer); 
+        return actionBarAdvisor; 
+        
     }
     
     @Override
@@ -23,6 +27,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(new Point(400, 300));
         configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(false);
+        configurer.setShowMenuBar(true);
         configurer.setTitle("Hyperbola"); //$NON-NLS-1$
     }
     

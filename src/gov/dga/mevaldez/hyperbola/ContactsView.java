@@ -9,12 +9,13 @@ import org.eclipse.ui.part.ViewPart;
 
 import gov.dga.mevaldez.hyperbola.model.ContactsEntry;
 import gov.dga.mevaldez.hyperbola.model.ContactsGroup;
+import gov.dga.mevaldez.hyperbola.model.IContactsListener;
 import gov.dga.mevaldez.hyperbola.model.Session;
 
 public class ContactsView extends ViewPart {
 
 	public static final String ID = "gov.dga.mevaldez.hyperbola.views.contacts";
-	private TreeViewer treeviewer;
+	private TreeViewer treeViewer;
 	private Session session;
 	
 	public ContactsView() {
@@ -23,23 +24,21 @@ public class ContactsView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		// TODO Auto-generated method stub
 		initializeSession();
-		treeviewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI| SWT.V_SCROLL);
-		getSite().setSelectionProvider(treeviewer);
-		treeviewer.setLabelProvider(new WorkbenchLabelProvider());
-		treeviewer.setContentProvider(new BaseWorkbenchContentProvider());
-		treeviewer.setInput(session.getRoot());
-		session.getRoot().addContactsListener(new IContactsListener());
-		public void ContactsChanged(ContactsGroup contacts,
-				ContactsEntry entry)) {
-			treeviewer.refresh();
-		}
-
-	}
+		treeViewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI| SWT.V_SCROLL);
+		getSite().setSelectionProvider(treeViewer);
+		treeViewer.setLabelProvider(new WorkbenchLabelProvider());
+		treeViewer.setContentProvider(new BaseWorkbenchContentProvider());
+		treeViewer.setInput(session.getRoot());
+		session.getRoot().addContactsListener(new IContactsListener(){
+		    public void contactsChanged(ContactsGroup contacts,	ContactsEntry entry){
+			     treeViewer.refresh();
+		    }
+		});
+		 
+	   }
 
 	private void initializeSession() {
-		// TODO Auto-generated method stub
 		session = new Session();
 		ContactsGroup root = session.getRoot();
 		ContactsGroup friendsGroup = new ContactsGroup(root, "friends");
@@ -48,13 +47,11 @@ public class ContactsView extends ViewPart {
 				"Alize", "aliz", "localhost"));
 		ContactsGroup otherGroup = new ContactsGroup(root, "other");
 		otherGroup.addEntry(new ContactsEntry(otherGroup, "Nadine", "nad", "localhost"));
-		
 	}
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
-		treeviewer.getControl().setFocus();
+		treeViewer.getControl().setFocus();
 
 	}
 

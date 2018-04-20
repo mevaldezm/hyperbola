@@ -2,18 +2,18 @@ package gov.dga.mevaldez.hyperbola.model;
 
 public class Presence {
 
-	private Presence ONLINE;
-	private Presence AWAY;
-	private Presence DO_NOT_DISTURB;
-	private Presence INVISIBLE;
+	public Presence ONLINE;
+	public Presence AWAY;
+	public Presence DO_NOT_DISTURB;
+	public Presence INVISIBLE;
 	private String value;
 	
-	public Presence() {}
+	private Presence() {}
 	
 	@Override
 	public String toString() {
 		
-		return this.toString();
+		return value;
 	}
 
 }

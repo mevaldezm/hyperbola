@@ -1,16 +1,7 @@
 package gov.dga.mevaldez.hyperbola.model;
 
-public class Contact {
+public abstract class Contact {
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	private String name;
-	public Object getParent() {
-		
-		return this.getParent();
-	}
+	public abstract String getName();
+	public abstract Contact getParent(); 
 }
